@@ -1,0 +1,44 @@
+services:
+  db: 
+    image: mysql:latest
+    container_name: mysql_site
+    environment:
+      MYSQL_USER: user_site
+      MYSQL_PASSWORD: pass_site
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DB: mydb_site
+    networks:
+      - network-site
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend_site
+    depends_on:
+      - db
+    ports:
+      - 5000:5000
+    networks:
+      - network-site
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend_site
+    depends_on:
+      - db
+      - backend
+    ports:
+      - 8081:3000
+    networks:
+      - network-site
+    # restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+
+networks:
+  network-site:
+    driver: bridge
