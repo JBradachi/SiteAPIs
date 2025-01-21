@@ -4,31 +4,25 @@ import requests
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     return render_template("index.html")
 
-# variaveis passadas por parametros
-@app.route('/<name>')
-def nome(name):
-    return f"Hello, {escape(name)}"
-
 @app.route('/direto')
-def diretorio():
+def direto():
     return redirect(url_for("hello", name="joao"))
 
 # constroi uma URL para uma função especifica
 with app.test_request_context():
-    print(url_for('nome', name="joao"))
-    print(url_for('diretorio'))
+    print(url_for('direto'))
     print(url_for("index"))
 
-@app.route('/login', methods=['GET', 'POST'])
-def method_name():
+@app.route('/noticias', methods=['GET', 'POST'])
+def noticias():
     if request.method == 'POST':
         return "Executa POST, envia dados para serem processados"
     else:
-        return "Executa GET, obtém dados do servidor"
+        return render_template("noticias.html")
 
 # é possível separar usando marcadores
 
