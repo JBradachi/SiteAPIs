@@ -7,6 +7,23 @@
 
     <body>
         <h1>Essa é a página de Notícias!</h1>
-        <h2>Voltar para <a href="/">Principal</a>?</h1>
+
+        <!-- Imprimir as notícias  -->
+        {% for noticia in noticias %}
+            <h3>{{ noticia }}</h3>
+            <br>
+        {% endfor %}
+
+        <!-- Voltar para a home -->
+        <h2>Voltar para <a href="/">home page?</a>?</h1>
+
+        <!-- Inserir nova notícia -->
+        <p>Inserir nova notícia</p>
+        <form method="post">
+            <label for="noticia">digite o nome da noticia</label>
+            <input type="text" id="noticia" name="noticia">
+
+            <input type="submit" value="Send" id="submit"/>
+        </form>
     </body>
 </html>
