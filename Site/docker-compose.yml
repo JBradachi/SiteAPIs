@@ -5,11 +5,14 @@ services:
     environment:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mysqlsite
-    networks:
-      - network-site
+      
     ports:
       - 3306:3306
+    volumes:
+      - type: bind
+        source: ./database
+        target: /docker-entrypoint-initdb.d/
+      
 
   backend:
     build:
@@ -19,8 +22,6 @@ services:
       - db
     ports:
       - 5000:5000
-    networks:
-      - network-site
     restart: unless-stopped
     volumes:
       - ./backend:/app
@@ -34,12 +35,6 @@ services:
       - backend
     ports:
       - 8081:3000
-    networks:
-      - network-site
     # restart: unless-stopped
     volumes:
       - ./frontend:/app
-
-networks:
-  network-site:
-    driver: bridge

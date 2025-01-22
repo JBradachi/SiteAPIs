@@ -1,10 +1,15 @@
 from flask import Flask, redirect, render_template, url_for, request
 from markupsafe import escape
 import requests
-import mysql.connector
-from mysql.connector import errorcode
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
+
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'mysqlsite'
+
+mysql = MySQL(app)
 
 @app.route("/", methods=['GET'])
 def index():
@@ -26,19 +31,13 @@ def noticias():
         # pega request do site
         noticia = request.form.get("noticia")
 
-    
-        # TODO inserir no db a notícia
-        mydb = mysql.connector.connect(
-            user="root",
-            password="root",
-            database="mysqlsite",
-            port="3306"
-        )
-        cursor = mydb.cursor()
+        cursor = mysql.connection.cursor()
         insere_noticia = ("INSERT INTO TB_noticia "
                           "(titulo) VALUES (%s)")
         dados_noticia = {noticia}
         cursor.execute(insere_noticia, dados_noticia)
+        mysql.connection.commit()
+        cursor.close()
 
     # TODO conectar com db e gerar as consultas
     noticias = []
