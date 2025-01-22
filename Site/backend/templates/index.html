@@ -7,6 +7,16 @@
 
     <body>
         <h1>Essa é a página principal do minascoders!</h1>
-        <h2>Vamos para <a href="/noticias">Notícias</a>?</h1>
+        {% for patrocinador, nivel in patrocinadores %}
+            {% if nivel > 4 %}
+                <h1>{{ patrocinador }}</h1>
+            {% elif nivel > 1 %}
+                <h2>{{ patrocinador }}</h2>
+            {% else %}
+                <h3>{{ patrocinador }}</h3>
+            {% endif %}
+        {% endfor %}
+        <h2>Vamos para <a href="/noticias">Notícias</a>?</h2>
+        <h2>Vamos para <a href="/publicacoes">Publicações</a>?</h2>
     </body>
 </html>

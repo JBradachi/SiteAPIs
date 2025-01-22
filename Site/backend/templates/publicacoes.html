@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Minascoders</title>
+    </head>
+
+    <body>
+        <h1>Essa é a página de Publicações!</h1>
+        <h1>----------------------------</h1>
+
+        <!-- Voltar para a home -->
+        <h3><a href="/">home page</a></h3>
+        
+        <br>
+        <!-- Imprimir as notícias  -->
+        {% for titulo, local, autor in publicacoes %}
+            <h2>{{ titulo }}</h2>
+            <h3>{{ local }}</h3>
+            <h3>{{ autor }}</h3>
+            <br>
+        {% endfor %}
+    </body>
+</html>
