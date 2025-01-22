@@ -15,7 +15,44 @@ mysql = MySQL(app)
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template("index.html")
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM mysqlsite.TB_patrocinadores 
+                ORDER BY nivel_patrocinador DESC""")
+    patrocinadores = cur.fetchall()
+    return render_template("index.html", patrocinadores=patrocinadores)
+
+@app.route('/publicacoes')
+def publicacoes():
+
+    cursor = mysql.connection.cursor()
+    cursor.execute("""SELECT * FROM mysqlsite.TB_publicacoes""")
+    publicacoes = cursor.fetchall()
+    cursor.close()
+    return render_template("publicacoes.html", publicacoes=publicacoes)
+
+@app.route('/noticias', methods=['GET', 'POST'])
+def noticias():
+    if request.method == 'POST':
+        
+        # pega request do site
+        noticia = request.form.get("noticia")
+        data = request.form.get("data") 
+
+        cursor = mysql.connection.cursor()
+        insere_noticia = ("""INSERT INTO TB_noticia 
+                          (PK_titulo, data_postagem) VALUES (%s, %s)""")
+        dados_noticia = {noticia, data}
+        cursor.execute(insere_noticia, dados_noticia)
+        mysql.connection.commit()
+        cursor.close()
+    cursor = mysql.connection.cursor()
+    cursor.execute("""SELECT * FROM mysqlsite.TB_noticia 
+                   ORDER BY data_postagem DESC""")
+    noticias = cursor.fetchall()
+    cursor.close()
+    return render_template("noticias.html", noticias=noticias)
+
+# é possível separar usando marcadores
 
 @app.route('/direto')
 def direto():
@@ -25,27 +62,6 @@ def direto():
 with app.test_request_context():
     print(url_for('direto'))
     print(url_for("index"))
-
-@app.route('/noticias', methods=['GET', 'POST'])
-def noticias():
-    if request.method == 'POST':
-        
-        # pega request do site
-        noticia = request.form.get("noticia")
-        
-        cursor = mysql.connection.cursor()
-        insere_noticia = ("INSERT INTO TB_noticia "
-                          "(PK_titulo) VALUES (%s)")
-        dados_noticia = {noticia}
-        cursor.execute(insere_noticia, dados_noticia)
-        mysql.connection.commit()
-        cursor.close()
-
-    # TODO conectar com db e gerar as consultas
-    noticias = []
-    return render_template("noticias.html", noticias=noticias)
-
-# é possível separar usando marcadores
 
 @app.get("/login2")
 def login_get():
