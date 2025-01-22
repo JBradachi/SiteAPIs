@@ -5,8 +5,10 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
+# Tirar daqui 
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_HOST'] = 'db'
 app.config['MYSQL_DB'] = 'mysqlsite'
 
 mysql = MySQL(app)
@@ -30,10 +32,10 @@ def noticias():
         
         # pega request do site
         noticia = request.form.get("noticia")
-
+        
         cursor = mysql.connection.cursor()
         insere_noticia = ("INSERT INTO TB_noticia "
-                          "(titulo) VALUES (%s)")
+                          "(PK_titulo) VALUES (%s)")
         dados_noticia = {noticia}
         cursor.execute(insere_noticia, dados_noticia)
         mysql.connection.commit()
