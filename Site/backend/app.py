@@ -21,11 +21,16 @@ def index():
     patrocinadores = cur.fetchall()
     return render_template("index.html", patrocinadores=patrocinadores)
 
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    return render_template("dashboard.html", selecao="nada")
+
 @app.route('/publicacoes')
 def publicacoes():
 
     cursor = mysql.connection.cursor()
-    cursor.execute("""SELECT * FROM mysqlsite.TB_publicacoes""")
+    cursor.execute("""SELECT * FROM mysqlsite.TB_publicacoes 
+                   ORDER BY ano_publicacao""")
     publicacoes = cursor.fetchall()
     cursor.close()
     return render_template("publicacoes.html", publicacoes=publicacoes)

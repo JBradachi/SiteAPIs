@@ -33,6 +33,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS mysqlsite.TB_publicacoes (
   PK_titulo VARCHAR(255) NOT NULL,
   local_publicacao VARCHAR(255) NOT NULL,
+  ano_publicacao YEAR NOT NULL,
   autores VARCHAR(255) NOT NULL,
   PRIMARY KEY (PK_titulo))
 ENGINE = InnoDB;
@@ -58,10 +59,10 @@ INSERT INTO TB_patrocinadores (PK_nome_patrocinador, nivel_patrocinador)
     ("HUB$", 4),
     ("Padaria do seu zé", 1);
 
-INSERT INTO TB_publicacoes (PK_titulo, local_publicacao, autores) 
+INSERT INTO TB_publicacoes (PK_titulo, local_publicacao, ano_publicacao, autores) 
   VALUES 
-    ("Mentoria em programação: aprendendo ao ensinar e ensinando ao aprender", "Anais do XV Women in Information Technology, 2021", "Maria Theresa Arruda Henriques"),
-    ("Competições de programação para meninas do ensino médio: Afinal, era apenas uma questão de propósito", "Anais do XIV Women in Information Technology (WIT), 2020", "Maria Dalila Vieira ");
+    ("Mentoria em programação: aprendendo ao ensinar e ensinando ao aprender", "Anais do XV Women in Information Technology", "2021", "Maria Theresa Arruda Henriques"),
+    ("Competições de programação para meninas do ensino médio: Afinal, era apenas uma questão de propósito", "Anais do XIV Women in Information Technology (WIT)", "2020", "Maria Dalila Vieira ");
 
 -- Configurações finais --------------------------------------------------------
 

@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+    <body>
+        <h1>Inserir dados</h1>
+        <h2>Selecione a informação que queira inserir</h2>
+        <form method="post">
+            <select name="selecao" id="selecao">Selecione
+                <option value="Noticias">Notícia</option>
+                <option value="Publicacoes">Publicação</option>
+                <option value="Patrocinadores">Patrocinador</option>
+            </select>
+        </form>
+
+        <h1>Noticia</h1>
+            <form method="post">
+                <label for="noticia">Digite o nome da noticia</label>
+                <input type="text" id="noticia" name="noticia">
+
+                <label for="data">Digite a data da noticia</label>
+                <input type="date" id="data" name="data">
+                <input type="submit" value="Send" id="submit"/>
+            </form>
+        <h1>Publicacoes</h1>
+    
+        <h1>Patrocinadores</h1>
+
+        {% endif %}
+    </body>
+</html>

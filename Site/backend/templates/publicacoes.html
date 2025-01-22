@@ -14,9 +14,9 @@
         
         <br>
         <!-- Imprimir as notícias  -->
-        {% for titulo, local, autor in publicacoes %}
+        {% for titulo, local, data, autor in publicacoes %}
             <h2>{{ titulo }}</h2>
-            <h3>{{ local }}</h3>
+            <h3>{{ local }}, {{ data }}</h3>
             <h3>{{ autor }}</h3>
             <br>
         {% endfor %}
