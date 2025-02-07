@@ -17,5 +17,10 @@ mysql = MySQL(app)
 def method_name():
     render_template("index.html")
 
+@app.route('/bitcoin')
+def btc():
+    data = requests.get('http://cointradermonitor.com/api/pbb/v1/ticker').json()
+    return render_template("btc.html", last=data["last"], volume24h=data["volume24h"], var24h=data["var24h"])
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000, host='0.0.0.0')
