@@ -15,7 +15,11 @@ mysql = MySQL(app)
 
 @app.route('/')
 def btc():
-    data = requests.get('http://cointradermonitor.com/api/pbb/v1/ticker').json()
+    cursor = mysql.connection.cursor()
+    cursor.execute("""SELECT * FROM mysqlsite.TB_bitcoin 
+                   ORDER BY PK_tempo DESC""")
+    data = cursor.fetchall()
+    cursor.close()
     return render_template("btc.html", last=data["last"], volume24h=data["volume24h"], var24h=data["var24h"])
 
 if __name__ == "__main__":
