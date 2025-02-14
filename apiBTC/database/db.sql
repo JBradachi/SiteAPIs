@@ -5,7 +5,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Garante que a comunicação entre o banco de dados e o backend se dará na
 -- codificação correta. Não remova essa linha sob hipótese alguma!
 
-SET CHARACTER SET utf8mb4;
+SET CHARACTER_SET_CLIENT = utf8;
+SET CHARACTER_SET_CONNECTION = utf8;
+SET CHARACTER_SET_RESULTS = utf8;
+SET COLLATION_CONNECTION = utf8_general_ci;
 
 -- Criação do banco de dados ---------------------------------------------------
 
@@ -15,8 +18,9 @@ CREATE TABLE IF NOT EXISTS mysqlsite.TB_bitcoin (
   valor DECIMAL NOT NULL,
   volume DECIMAL NOT NULL,
   variacao DECIMAL NOT NULL,
-  PK_tempo VARCHAR(50) NOT NULL,
-  PRIMARY KEY (PK_tempo))
+  tempo VARCHAR(50) NOT NULL,
+  PK_id INTEGER NOT NULL auto_increment,
+  PRIMARY KEY (PK_id))
 ENGINE = InnoDB;
 
 -- Inserção de dados iniciais --------------------------------------------------

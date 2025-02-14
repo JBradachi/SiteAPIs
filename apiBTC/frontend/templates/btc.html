@@ -1,10 +1,6 @@
 <!doctype html>
 <title>Monitoramento de cripto</title>
-    <h1></h1>
-{% if last and volume24h and var24h %}
-    <h1>Ultimo valor: {{ last }}</h1>
-    <h1>Volume: {{ volume24h }}</h1>
-    <h1>Variação: {{ var24h }}</h1>
-{% else %}
-    <h1>Entrou no caminho errado amigo</h1>
-{% endif %}
+    <h1> {{ dados }}</h1>
+    <h1>{{ data }}</h1>
+
+

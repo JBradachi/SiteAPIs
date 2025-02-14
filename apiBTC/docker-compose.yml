@@ -1,7 +1,7 @@
 services:
   db: 
     image: mysql:latest
-    container_name: mysql_site
+    container_name: mysql_apibtc
     environment:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
@@ -17,7 +17,7 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: backend_site
+    container_name: backend_apibtc
     depends_on:
       - db
     ports:
@@ -29,12 +29,12 @@ services:
   frontend:
     build:
       context: ./frontend
-    container_name: frontend_site
+    container_name: frontend_apibtc
     depends_on:
       - db
       - backend
     ports:
-      - 8081:3000
-    # restart: unless-stopped
+      - 3000:3000
+    restart: unless-stopped
     volumes:
       - ./frontend:/app

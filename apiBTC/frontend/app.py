@@ -1,26 +1,39 @@
 from flask import Flask, redirect, render_template, url_for, request
 from markupsafe import escape
 import requests
-from flask_mysqldb import MySQL
+import mysql.connector
 
 app = Flask(__name__)
 
-# Tirar daqui 
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_HOST'] = 'db'
-app.config['MYSQL_DB'] = 'mysqlsite'
-
-mysql = MySQL(app)
-
 @app.route('/')
 def btc():
-    cursor = mysql.connection.cursor()
+    cursor = mydb.cursor()
     cursor.execute("""SELECT * FROM mysqlsite.TB_bitcoin 
-                   ORDER BY PK_tempo DESC""")
+                   ORDER BY tempo DESC LIMIT 10""")
     data = cursor.fetchall()
+
+    dados = list()
+    for dado in data:
+        dados.append({
+            "valor": dado[0],
+            "volume": dado[1],
+            "variacao": dado[2],
+            "tempo": dado[3]
+        })
+    dados.append({
+        "valor":1212
+    })
+
     cursor.close()
-    return render_template("btc.html", last=data["last"], volume24h=data["volume24h"], var24h=data["var24h"])
+    return render_template("btc.html", dados=dados, data=data)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, host='0.0.0.0')
+
+    mydb = mysql.connector.connect(
+    host='db',
+    user='root',
+    password='root',
+    database='mysqlsite',
+    )
+
+    app.run(debug=True, port=3000, host='0.0.0.0')

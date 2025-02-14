@@ -7,7 +7,7 @@ RUN pip install --upgrade pip
 RUN pip install requests
 RUN pip install flask
 RUN pip install mysqlclient
-RUN pip install flask-mysqldb
+RUN pip install mysql-connector-python
 
 COPY . . 
 
