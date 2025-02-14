@@ -5,7 +5,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Garante que a comunicação entre o banco de dados e o backend se dará na
 -- codificação correta. Não remova essa linha sob hipótese alguma!
 
-SET CHARACTER SET utf8mb4;
+SET CHARACTER_SET_CLIENT = utf8;
+SET CHARACTER_SET_CONNECTION = utf8;
+SET CHARACTER_SET_RESULTS = utf8;
+SET COLLATION_CONNECTION = utf8_general_ci;
 
 -- Criação do banco de dados ---------------------------------------------------
 
